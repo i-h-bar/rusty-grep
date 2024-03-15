@@ -20,3 +20,21 @@ pub fn find_file_match(file: &str) -> Option<String> {
 
     None
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn find_file() {
+        let file_match = find_file_match("text.txt");
+        assert!(file_match.is_some());
+        assert_eq!(find_file_match("text.txt").unwrap(), "test.txt")
+    }
+
+    #[test]
+    fn no_file() {
+        assert!(find_file_match("sadasdad").is_none())
+    }
+}
