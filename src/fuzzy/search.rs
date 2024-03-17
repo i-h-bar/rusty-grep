@@ -7,11 +7,11 @@ pub fn find_file_match(file: &str) -> Option<String> {
         let pot = potential.ok()?.path();
         let pot_str = match pot.as_path().to_str() {
             Some(n) => n,
-            None => continue
+            None => continue,
         };
         let name = match pot_str.split_once("\\") {
             Some((_, name)) => name,
-            None => continue
+            None => continue,
         };
         if lev::distance(name, file) < 3 {
             return Some(name.to_string());
@@ -20,7 +20,6 @@ pub fn find_file_match(file: &str) -> Option<String> {
 
     None
 }
-
 
 #[cfg(test)]
 mod tests {

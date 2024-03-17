@@ -1,16 +1,16 @@
 use std::cmp;
 
-pub fn distance(str1: &str, str2: &str) -> u32 {
+pub fn distance(str1: &str, str2: &str) -> usize {
     let len_str_1 = str1.chars().count() + 1;
     let len_str_2 = str2.chars().count() + 1;
 
-    let mut mat: Vec<Vec<u32>> = vec![vec![0; len_str_2]; len_str_1];
+    let mut mat: Vec<Vec<usize>> = vec![vec![0; len_str_2]; len_str_1];
 
     for i in 1..len_str_1 {
-        mat[i][0] = i as u32;
+        mat[i][0] = i;
     }
     for j in 1..len_str_2 {
-        mat[0][j] = j as u32;
+        mat[0][j] = j;
     }
 
     for (i, chr1) in str1.chars().enumerate() {
@@ -18,19 +18,13 @@ pub fn distance(str1: &str, str2: &str) -> u32 {
             if chr1 == chr2 {
                 mat[i + 1][j + 1] = mat[i][j]
             } else {
-                mat[i + 1][j + 1] = cmp::min(
-                    mat[i][j + 1],
-                    cmp::min(
-                        mat[i + 1][j], mat[i][j],
-                    ),
-                ) + 1;
+                mat[i + 1][j + 1] = cmp::min(mat[i][j + 1], cmp::min(mat[i + 1][j], mat[i][j])) + 1;
             }
         }
     }
 
     mat[len_str_1 - 1][len_str_2 - 1]
 }
-
 
 #[cfg(test)]
 mod test {
