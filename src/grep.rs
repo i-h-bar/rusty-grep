@@ -47,11 +47,11 @@ pub fn run(config: &Config) {
 
 fn search(query: &str, content: &str) -> Vec<String> {
     let mut lines: Vec<String> = Vec::new();
-    let reg = Regex::new(&format!(r#"(?i).*?({}).*?(:?\.\.\.|\.|\?|!)(:?['"])??"#, query))
+    let reg = Regex::new(&format!(r#".*?({}).*?(:?\.\.\.|\.|\?|!)(:?['"])??"#, query))
         .expect("Search regex should be valid");
 
     for captures in reg.captures_iter(content) {
-        let mut line = match captures.get(0) {
+        let line = match captures.get(0) {
             Some(cap) => String::from(cap.as_str()),
             None => continue,
         };
